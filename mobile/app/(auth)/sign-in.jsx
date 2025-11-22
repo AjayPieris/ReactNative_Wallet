@@ -78,6 +78,7 @@ export default function Page() {
         <Image
           source={require("../../assets/images/revenue-i4.png")}
           style={styles.illustration}
+          contentFit="contain"
         />
         <Text style={styles.title}>Welcome Back</Text>
         {error && (
@@ -107,7 +108,8 @@ export default function Page() {
           value={password}
           placeholder="Enter password"
           placeholderTextColor="#9A8478"
-          secureTextEntry={false}
+          secureTextEntry={true}
+          autoCapitalize="none"
           onChangeText={(password) => setPassword(password)}
         />
         <TouchableOpacity onPress={onSignInPress} style={styles.button}>

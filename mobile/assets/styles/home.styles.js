@@ -1,6 +1,6 @@
 // styles/home.styles.js
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../constants/colors";
+import { COLORS } from "../../constants/color.js";
 
 export const styles = StyleSheet.create({
   container: {
@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
   content: {
+    flex: 1,
     padding: 20,
     paddingBottom: 0,
   },
@@ -133,6 +134,7 @@ export const styles = StyleSheet.create({
   },
   transactionCard: {
     backgroundColor: COLORS.card,
+
     borderRadius: 12,
     marginBottom: 10,
     flexDirection: "row",
@@ -256,7 +258,6 @@ export const styles = StyleSheet.create({
   },
   transactionsList: {
     flex: 1,
-    marginHorizontal: 20,
   },
   transactionsListContent: {
     paddingBottom: 20,

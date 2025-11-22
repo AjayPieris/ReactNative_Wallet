@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   illustration: {
     height: 310,
     width: 300,
-    resizeMode: "contain",
+    // resizeMode: "contain", // Deprecated in expo-image, use contentFit prop instead
   },
   title: {
     fontSize: 32,

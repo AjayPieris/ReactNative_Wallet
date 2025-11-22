@@ -17,6 +17,7 @@ export default function SignUpScreen() {
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
   const [error, setError] = useState(null);
+
   const parseClerkError = (err) => {
     const arr = Array.isArray(err?.errors) ? err.errors : [];
     const codes = arr.map((e) => e.code);
@@ -29,6 +30,8 @@ export default function SignUpScreen() {
     if (codes.includes("form_password_too_weak"))
       return "Password is too weak.";
     if (codes.includes("form_param_missing")) return "Missing required field.";
+    if (codes.includes("too_many_requests"))
+      return "Too many requests. Please try again later.";
     return arr[0]?.message || "An unexpected error occurred. Please try again.";
   };
 
@@ -133,6 +136,7 @@ export default function SignUpScreen() {
         <Image
           source={require("../../assets/images/revenue-i2.png")}
           style={styles.illustration}
+          contentFit="contain"
         />
         <Text style={styles.title}>Create Account</Text>
 
@@ -163,7 +167,7 @@ export default function SignUpScreen() {
           value={password}
           placeholder="Enter password"
           placeholderTextColor="#9A8478"
-          secureTextEntry={true}
+          secureTextEntry={false}
           onChangeText={(password) => setPassword(password)}
         />
 
