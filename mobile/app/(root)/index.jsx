@@ -1,10 +1,10 @@
-import { SignedIn, SignedOut, useUser } from '@clerk/clerk-expo'
-import { Link } from 'expo-router'
-import { Text, View } from 'react-native'
-import { SignOutButton } from '@/components/SignOutButton'
+import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
+import { Link } from "expo-router";
+import { Text, View } from "react-native";
+import { SignOutButton } from "@/components/SignOutButton";
 
 export default function Page() {
-  const { user } = useUser()
+  const { user } = useUser();
 
   return (
     <View>
@@ -13,13 +13,13 @@ export default function Page() {
         <SignOutButton />
       </SignedIn>
       <SignedOut>
-        <Link href="/(auth)/sign-in">
+        <Link href="/sign-in">
           <Text>Sign in</Text>
         </Link>
-        <Link href="/(auth)/sign-up">
+        <Link href="/sign-up">
           <Text>Sign up</Text>
         </Link>
       </SignedOut>
     </View>
-  )
+  );
 }
