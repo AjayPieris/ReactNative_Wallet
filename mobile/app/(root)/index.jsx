@@ -1,7 +1,7 @@
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
 import { Link, useRouter } from "expo-router";
-import { useEffect } from "react";
-import { Text, View, TouchableOpacity, FlatList, Alert } from "react-native";
+import { useEffect, useState } from "react";
+import { Text, View, TouchableOpacity, FlatList, Alert, RefreshControl } from "react-native";
 import { SignOutButton } from "@/components/SignOutButton";
 import { useTransactions } from "@/hooks/useTransactions";
 import PageLoader from "../../components/PageLoader";
@@ -15,6 +15,7 @@ import NoTransactionsFound from "../../components/NoTransactionFound";
 export default function Page() {
   const { user } = useUser();
   const router = useRouter();
+  const [refreshing, setRefreshing] =useState(false);
 
   const {
     transactions,
@@ -30,6 +31,13 @@ export default function Page() {
       loadData();
     }
   }, [user?.id]);
+
+
+  const onRefresh = async() => {
+    setRefreshing(true);
+    await loadData();
+    setRefreshing(false);
+  };
 
   const handleDelete = async (transactionId) => {
     Alert.alert(
@@ -47,7 +55,7 @@ export default function Page() {
   };
 
   // Loading Screen
-  if (isLoading) return <PageLoader />;
+  if (isLoading && !refreshing) return <PageLoader />;
 
   // Error Screen
   if (error) {
@@ -129,6 +137,7 @@ export default function Page() {
           )}
           ListEmptyComponent={<NoTransactionsFound />}
           showsVerticalScrollIndicator={false}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
         />
       </View>
     </View>
