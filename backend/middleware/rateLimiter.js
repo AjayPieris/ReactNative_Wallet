@@ -2,6 +2,9 @@
 import ratelimit from "../config/upstash.js"; // <-- include .js
 
 const rateLimiter = async (req, res, next) => {
+  // If Upstash isn't configured, don't block local development.
+  if (!ratelimit) return next();
+
   try {
     // Use IP address or a unique identifier for the user
     const identifier = req.ip || "global-limit";
@@ -16,7 +19,8 @@ const rateLimiter = async (req, res, next) => {
     next();
   } catch (error) {
     console.log("❌ Rate Limiter Error:", error);
-    next(error);
+    // Fail-open so missing/misconfigured Upstash doesn't break the API.
+    next();
   }
 };
 
